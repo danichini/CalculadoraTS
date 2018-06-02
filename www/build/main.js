@@ -150,7 +150,12 @@ var HomePage = (function () {
     };
     HomePage.prototype.resultado = function () {
         this.Resultado = eval(this.Operacion);
-        this.Err = "";
+        if (isNaN(this.Resultado) === true) {
+            this.Err = "culliao papi";
+        }
+        else {
+            this.Err = "";
+        }
     };
     HomePage.prototype.borrar = function () {
         this.Operacion = "";
