@@ -103,7 +103,12 @@ export class HomePage {
   }
   resultado(){
     this.Resultado = eval(this.Operacion);
-    this.Err = "";
+    if ( isNaN(this.Resultado) === true) {
+      this.Err = "culliao papi";
+    }
+    else {
+      this.Err = "";
+    }
   }
   borrar(){
     this.Operacion="";
