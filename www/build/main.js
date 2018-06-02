@@ -55,30 +55,118 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomePage = (function () {
     function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
-        this.name = 'Claudia';
-        this.test = [1, 2, 5, 3];
-        this.flag = false;
-        this.numbers = [1, 2];
+        this.regexp = new RegExp(/[-+*\/]{2,3}/g);
+        this.Operacion = "";
     }
-    HomePage.prototype.ionViewDidLoad = function () {
-        alert(this.name);
+    HomePage.prototype.addSuma = function () {
+        var isExisting = this.regexp.test(this.Operacion);
+        if (isExisting === false) {
+            this.save = this.Operacion;
+            this.Operacion = this.Operacion + "+";
+            var isExisting_1 = this.regexp.test(this.Operacion);
+            if (isExisting_1 === true) {
+                this.Err = "debe agregar un numero depues de un simbolo";
+                this.Operacion = this.save;
+            }
+        }
+        else {
+            this.Err = "debe agregar un numero depues de un simbolo2";
+        }
     };
-    HomePage.prototype.click = function () {
-        alert(this.name);
+    HomePage.prototype.addResta = function () {
+        var isExisting = this.regexp.test(this.Operacion);
+        if (isExisting === false) {
+            this.save = this.Operacion;
+            this.Operacion = this.Operacion + "-";
+            var isExisting_2 = this.regexp.test(this.Operacion);
+            if (isExisting_2 === true) {
+                this.Err = "debe agregar un numero depues de un simbolo";
+                this.Operacion = this.save;
+            }
+        }
+        else {
+            this.Err = "debe agregar un numero depues de un simbolo2";
+        }
     };
-    HomePage.prototype.add = function (num) {
-        this.numbers.push(num);
-        console.log(num);
+    HomePage.prototype.addMult = function () {
+        var isExisting = this.regexp.test(this.Operacion);
+        if (isExisting === false) {
+            this.save = this.Operacion;
+            this.Operacion = this.Operacion + "*";
+            var isExisting_3 = this.regexp.test(this.Operacion);
+            if (isExisting_3 === true) {
+                this.Err = "debe agregar un numero depues de un simbolo";
+                this.Operacion = this.save;
+            }
+        }
+        else {
+            this.Err = "debe agregar un numero depues de un simbolo2";
+        }
+    };
+    HomePage.prototype.addDivi = function () {
+        var isExisting = this.regexp.test(this.Operacion);
+        if (isExisting === false) {
+            this.save = this.Operacion;
+            this.Operacion = this.Operacion + "/";
+            var isExisting_4 = this.regexp.test(this.Operacion);
+            if (isExisting_4 === true) {
+                this.Err = "debe agregar un numero depues de un simbolo";
+                this.Operacion = this.save;
+            }
+        }
+        else {
+            this.Err = "debe agregar un numero depues de un simbolo2";
+        }
+    };
+    HomePage.prototype.add0 = function () {
+        this.Operacion = this.Operacion + "0";
+    };
+    HomePage.prototype.add1 = function () {
+        this.Operacion = this.Operacion + "1";
+    };
+    HomePage.prototype.add2 = function () {
+        this.Operacion = this.Operacion + "2";
+    };
+    HomePage.prototype.add3 = function () {
+        this.Operacion = this.Operacion + "3";
+    };
+    HomePage.prototype.add4 = function () {
+        this.Operacion = this.Operacion + "4";
+    };
+    HomePage.prototype.add5 = function () {
+        this.Operacion = this.Operacion + "5";
+    };
+    HomePage.prototype.add6 = function () {
+        this.Operacion = this.Operacion + "6";
+    };
+    HomePage.prototype.add7 = function () {
+        this.Operacion = this.Operacion + "7";
+    };
+    HomePage.prototype.add8 = function () {
+        this.Operacion = this.Operacion + "8";
+    };
+    HomePage.prototype.add9 = function () {
+        this.Operacion = this.Operacion + "9";
+    };
+    HomePage.prototype.resultado = function () {
+        this.Resultado = eval(this.Operacion);
+        this.Err = "";
+    };
+    HomePage.prototype.borrar = function () {
+        this.Operacion = "";
+        this.Resultado = 0;
+        this.Err = "";
     };
     return HomePage;
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\ImClaudiaF\Desktop\ionic\firstApp\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      My First App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h1>Hola mundo</h1>\n\n  <!-- INPUTS  -->\n  <!-- <ion-list>\n    <ion-item>\n      <ion-label fixed>Username</ion-label>\n      <ion-input type="text" value=""></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label floating>Username</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-input type="text" placeholder="Username"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label stacked>Username</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n  </ion-list> -->\n\n  <!-- BUTTONS -->\n  <!-- <button ion-button color="light">Light</button>\n  <button ion-button color="danger" outline>Danger Outline</button>\n  <button ion-button color="secondary" clear>Secondary Clear</button>\n  <button ion-button color="dark" round>Dark Round</button>\n  <button ion-button block>Block Button</button>\n  <button ion-button icon-only>\n    Right Icon\n    <ion-icon name="home"></ion-icon>\n  </button> -->\n\n  <!-- GRID -->\n  <!-- <ion-grid>\n    <ion-row>\n      <ion-col col-12>This column will take 12 columns</ion-col>\n      <ion-col col-6>This column will take 6 columns</ion-col>\n      <ion-col col-3>This column will take 3 columns</ion-col>\n      <ion-col col-3>This column will take 3 columns</ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-12>\n        <ion-item>\n          <ion-label floating>Username</ion-label>\n          <ion-input type="text"></ion-input>\n        </ion-item>\n      </ion-col>\n      <ion-col col-6>\n        <ion-item>\n          <ion-label fixed>Username</ion-label>\n          <ion-input type="text" value=""></ion-input>\n        </ion-item>\n      </ion-col>\n      <ion-col col-3>\n        <ion-item>\n          <ion-label floating>Username</ion-label>\n          <ion-input type="text"></ion-input>\n        </ion-item>\n      </ion-col>\n      <ion-col col-3>\n        <button ion-button color="danger" outline>Danger Outline</button>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n  <!-- DATA BINDING -->\n  <!-- <ion-row>\n    <ion-col col-6>\n      <ion-item>\n        <ion-label fixed>Nombre</ion-label>\n        <ion-input [(ngModel)]="name" type="text" value=""></ion-input>\n      </ion-item>\n    </ion-col>\n    <ion-col col-3>\n      <p>Hola {{name}}</p>\n    </ion-col>\n  </ion-row> -->\n\n  <!-- ngFor LISTA DE NUMEROS-->\n  <!-- <ion-row>\n    <ion-col col-3>\n      <p *ngFor="let item of test">{{item}}</p>\n    </ion-col>\n  </ion-row>\n</ion-content> -->\n\n  <!-- ngIf QUE MUESTRA MENSAJE CUANDO FLAG ES TRUE -->\n  <!-- <ion-row>\n    <ion-col col-s5>\n      <p *ngIf="flag">Es true</p>\n    </ion-col>\n  </ion-row> -->\n\n\n  <!-- INPUT CON MODEL QUE AGREGA DINAMICAMENTE NUMERO A LISTA -->\n  <!-- <ion-item>\n    <ion-label floating>number</ion-label>\n    <ion-input [(ngModel)]="addNumber" type="number"></ion-input>\n  </ion-item>\n  <button ion-button color="danger" outline (click)=\'add(addNumber)\'>Danger Outline</button>\n  <p *ngFor="let item of numbers">{{item}}</p> -->\n'/*ion-inline-end:"C:\Users\ImClaudiaF\Desktop\ionic\firstApp\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Calculadora\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  \n\n  <h1>{{Operacion}}</h1>\n\n  <br>\n\n  <button ion-button color="light" strong=true (click)=\'add1();\'>1</button>\n\n  <button ion-button color="light" strong=true (click)=\'add2();\'>2</button>\n\n  <button ion-button color="light" strong=true (click)=\'add3();\'>3</button>\n\n  <br>\n\n  <button ion-button color="light" strong=true (click)=\'add4();\'>4</button>\n\n  <button ion-button color="light" strong=true (click)=\'add5();\'>5</button>\n\n  <button ion-button color="light" strong=true (click)=\'add6();\'>6</button>\n\n  <br>\n\n  <button ion-button color="light" strong=true (click)=\'add7();\'>7</button>\n\n  <button ion-button color="light" strong=true (click)=\'add8();\'>8</button>\n\n  <button ion-button color="light" strong=true (click)=\'add9();\'>9</button>\n\n  <button ion-button color="light" strong=true (click)=\'add0();\'>0</button>\n\n  <br>\n\n  <button ion-button color="dark" strong=true (click)=\'addSuma();\'>+</button>\n\n  <button ion-button color="dark" strong=true (click)=\'addResta();\'>-</button>\n\n  <button ion-button color="dark" strong=true (click)=\'addMult();\'>x</button>\n\n  <button ion-button color="dark" strong=true (click)=\'addDivi();\'>/</button>\n\n  <br>\n\n  <button ion-button color="dark" strong=true (click)=\'resultado();\'>Resolver</button>\n\n  <button ion-button color="dark" strong=true (click)=\'borrar();\'>Borrar</button>\n\n\n\n  <h1>El resultado es: {{Resultado}}</h1>\n\n  <h6>{{Err}}</h6>\n\n  <!-- INPUTS  -->\n\n  \n\n  <!-- <ion-list>\n\n    <ion-item>\n\n      <ion-label fixed>Username</ion-label>\n\n      <ion-input type="text" value=""></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label floating>Username</ion-label>\n\n      <ion-input type="text"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-input type="text" placeholder="Username"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label stacked>Username</ion-label>\n\n      <ion-input type="text"></ion-input>\n\n    </ion-item>\n\n  </ion-list> -->\n\n\n\n  <!-- BUTTONS -->\n\n  <!-- <button ion-button color="light">Light</button>\n\n  <button ion-button color="danger" outline>Danger Outline</button>\n\n  <button ion-button color="secondary" clear>Secondary Clear</button>\n\n  <button ion-button color="dark" round>Dark Round</button>\n\n  <button ion-button block>Block Button</button>\n\n  <button ion-button icon-only>\n\n    Right Icon\n\n    <ion-icon name="home"></ion-icon>\n\n  </button> -->\n\n\n\n  <!-- GRID -->\n\n  <!-- <ion-grid>\n\n    <ion-row>\n\n      <ion-col col-12>This column will take 12 columns</ion-col>\n\n      <ion-col col-6>This column will take 6 columns</ion-col>\n\n      <ion-col col-3>This column will take 3 columns</ion-col>\n\n      <ion-col col-3>This column will take 3 columns</ion-col>\n\n    </ion-row>\n\n    <ion-row>\n\n      <ion-col col-12>\n\n        <ion-item>\n\n          <ion-label floating>Username</ion-label>\n\n          <ion-input type="text"></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-6>\n\n        <ion-item>\n\n          <ion-label fixed>Username</ion-label>\n\n          <ion-input type="text" value=""></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-3>\n\n        <ion-item>\n\n          <ion-label floating>Username</ion-label>\n\n          <ion-input type="text"></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-3>\n\n        <button ion-button color="danger" outline>Danger Outline</button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid> -->\n\n\n\n  <!-- DATA BINDING -->\n\n  <!-- <ion-row>\n\n    <ion-col col-6>\n\n      <ion-item>\n\n        <ion-label fixed>Nombre</ion-label>\n\n        <ion-input [(ngModel)]="name" type="text" value=""></ion-input>\n\n      </ion-item>\n\n    </ion-col>\n\n    <ion-col col-3>\n\n      <p>Hola {{name}}</p>\n\n    </ion-col>\n\n  </ion-row> -->\n\n\n\n  <!-- ngFor LISTA DE NUMEROS-->\n\n  <!-- <ion-row>\n\n    <ion-col col-3>\n\n      <p *ngFor="let item of test">{{item}}</p>\n\n    </ion-col>\n\n  </ion-row>\n\n</ion-content> -->\n\n\n\n  <!-- ngIf QUE MUESTRA MENSAJE CUANDO FLAG ES TRUE -->\n\n  <!-- <ion-row>\n\n    <ion-col col-s5>\n\n      <p *ngIf="flag">Es true</p>\n\n    </ion-col>\n\n  </ion-row> -->\n\n\n\n\n\n  <!-- INPUT CON MODEL QUE AGREGA DINAMICAMENTE NUMERO A LISTA -->\n\n  <!-- <ion-item>\n\n    <ion-label floating>number</ion-label>\n\n    <ion-input [(ngModel)]="addNumber" type="number"></ion-input>\n\n  </ion-item>\n\n  <button ion-button color="danger" outline (click)=\'add(addNumber)\'>Danger Outline</button>\n\n  <p *ngFor="let item of numbers">{{item}}</p> -->\n\n'/*ion-inline-end:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object])
 ], HomePage);
 
+var _a;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -193,7 +281,7 @@ var MyApp = (function () {
     return MyApp;
 }());
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\ImClaudiaF\Desktop\ionic\firstApp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"C:\Users\ImClaudiaF\Desktop\ionic\firstApp\src\app\app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\app\app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);

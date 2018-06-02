@@ -1,15 +1,40 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      My First App
+      Calculadora
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h1>Hola mundo</h1>
+  
+  <h1>{{Operacion}}</h1>
+  <br>
+  <button ion-button color="light" strong=true (click)='add1();'>1</button>
+  <button ion-button color="light" strong=true (click)='add2();'>2</button>
+  <button ion-button color="light" strong=true (click)='add3();'>3</button>
+  <br>
+  <button ion-button color="light" strong=true (click)='add4();'>4</button>
+  <button ion-button color="light" strong=true (click)='add5();'>5</button>
+  <button ion-button color="light" strong=true (click)='add6();'>6</button>
+  <br>
+  <button ion-button color="light" strong=true (click)='add7();'>7</button>
+  <button ion-button color="light" strong=true (click)='add8();'>8</button>
+  <button ion-button color="light" strong=true (click)='add9();'>9</button>
+  <button ion-button color="light" strong=true (click)='add0();'>0</button>
+  <br>
+  <button ion-button color="dark" strong=true (click)='addSuma();'>+</button>
+  <button ion-button color="dark" strong=true (click)='addResta();'>-</button>
+  <button ion-button color="dark" strong=true (click)='addMult();'>x</button>
+  <button ion-button color="dark" strong=true (click)='addDivi();'>/</button>
+  <br>
+  <button ion-button color="dark" strong=true (click)='resultado();'>Resolver</button>
+  <button ion-button color="dark" strong=true (click)='borrar();'>Borrar</button>
 
+  <h1>El resultado es: {{Resultado}}</h1>
+  <h6>{{Err}}</h6>
   <!-- INPUTS  -->
+  
   <!-- <ion-list>
     <ion-item>
       <ion-label fixed>Username</ion-label>
