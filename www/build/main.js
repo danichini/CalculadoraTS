@@ -55,29 +55,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomePage = (function () {
     function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
-        this.regexp = new RegExp(/[-+*\/]{2,3}/g);
+        this.regexp = new RegExp(/[-+*\/.]{2}/g);
+        this.regPunto = new RegExp(/[0-9]+[.]+[0-9]+[.]/g);
+        this.re0 = new RegExp(/([0]{2})/g);
+        this.rep0 = new RegExp(/[.]([0])/g);
+        this.reag0 = new RegExp(/[-+*/]+[0]{2,40}/g);
         this.Operacion = "";
     }
-    HomePage.prototype.addSuma = function () {
+    HomePage.prototype.addPunto = function () {
         var isExisting = this.regexp.test(this.Operacion);
+        var isDotExisting = this.regPunto.test(this.Operacion);
+        console.log(this.Operacion);
         if (isExisting === false) {
             this.save = this.Operacion;
-            this.Operacion = this.Operacion + "+";
+            this.Operacion = this.Operacion + ".";
             var isExisting_1 = this.regexp.test(this.Operacion);
+            var isDotExisting_1 = this.regPunto.test(this.Operacion);
+            if (isDotExisting_1 === true) {
+                this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+            }
             if (isExisting_1 === true) {
                 this.Err = "debe agregar un numero depues de un simbolo";
                 this.Operacion = this.save;
             }
         }
         else {
-            this.Err = "debe agregar un numero depues de un simbolo2";
+            this.Err = "debe ";
         }
     };
-    HomePage.prototype.addResta = function () {
+    HomePage.prototype.addSuma = function () {
         var isExisting = this.regexp.test(this.Operacion);
         if (isExisting === false) {
             this.save = this.Operacion;
-            this.Operacion = this.Operacion + "-";
+            this.Operacion = this.Operacion + "+";
             var isExisting_2 = this.regexp.test(this.Operacion);
             if (isExisting_2 === true) {
                 this.Err = "debe agregar un numero depues de un simbolo";
@@ -85,14 +95,14 @@ var HomePage = (function () {
             }
         }
         else {
-            this.Err = "debe agregar un numero depues de un simbolo2";
+            this.Err = "debe agregar un numero depues de un simbolo";
         }
     };
-    HomePage.prototype.addMult = function () {
+    HomePage.prototype.addResta = function () {
         var isExisting = this.regexp.test(this.Operacion);
         if (isExisting === false) {
             this.save = this.Operacion;
-            this.Operacion = this.Operacion + "*";
+            this.Operacion = this.Operacion + "-";
             var isExisting_3 = this.regexp.test(this.Operacion);
             if (isExisting_3 === true) {
                 this.Err = "debe agregar un numero depues de un simbolo";
@@ -100,14 +110,14 @@ var HomePage = (function () {
             }
         }
         else {
-            this.Err = "debe agregar un numero depues de un simbolo2";
+            this.Err = "debe agregar un numero depues de un simbolo";
         }
     };
-    HomePage.prototype.addDivi = function () {
+    HomePage.prototype.addMult = function () {
         var isExisting = this.regexp.test(this.Operacion);
         if (isExisting === false) {
             this.save = this.Operacion;
-            this.Operacion = this.Operacion + "/";
+            this.Operacion = this.Operacion + "*";
             var isExisting_4 = this.regexp.test(this.Operacion);
             if (isExisting_4 === true) {
                 this.Err = "debe agregar un numero depues de un simbolo";
@@ -115,7 +125,22 @@ var HomePage = (function () {
             }
         }
         else {
-            this.Err = "debe agregar un numero depues de un simbolo2";
+            this.Err = "debe agregar un numero depues de un simbolo";
+        }
+    };
+    HomePage.prototype.addDivi = function () {
+        var isExisting = this.regexp.test(this.Operacion);
+        if (isExisting === false) {
+            this.save = this.Operacion;
+            this.Operacion = this.Operacion + "/";
+            var isExisting_5 = this.regexp.test(this.Operacion);
+            if (isExisting_5 === true) {
+                this.Err = "debe agregar un numero depues de un simbolo";
+                this.Operacion = this.save;
+            }
+        }
+        else {
+            this.Err = "debe agregar un numero depues de un simbolo";
         }
     };
     HomePage.prototype.add0 = function () {
@@ -149,24 +174,59 @@ var HomePage = (function () {
         this.Operacion = this.Operacion + "9";
     };
     HomePage.prototype.resultado = function () {
-        this.Resultado = eval(this.Operacion);
-        if (isNaN(this.Resultado) === true) {
-            this.Err = "culliao papi";
+        var a = this.Operacion.charAt(this.Operacion.length - 1);
+        switch (a) {
+            case '+':
+                this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+                break;
+            case '-':
+                this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+                break;
+            case '*':
+                this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+                break;
+            case '/':
+                this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+                break;
+            default:
+                var b = this.Operacion.charAt(0);
+                switch (b) {
+                    case '+':
+                        this.Operacion = this.Operacion.substr(1);
+                        break;
+                    case '-':
+                        this.Operacion = this.Operacion.substr(1);
+                        break;
+                    case '*':
+                        this.Operacion = this.Operacion.substr(1);
+                        break;
+                    case '/':
+                        this.Operacion = this.Operacion.substr(1);
+                        break;
+                    default:
+                        this.Operacion = eval(this.Operacion);
+                        this.Operacion = this.Operacion + "";
+                        this.Err = "";
+                        console.log(this.Operacion);
+                        if (this.Operacion === undefined) {
+                            this.Operacion = "";
+                            this.Err = "Campo Vacio";
+                        }
+                }
         }
-        else {
-            this.Err = "";
-        }
+    };
+    HomePage.prototype.backspace = function () {
+        this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
     };
     HomePage.prototype.borrar = function () {
         this.Operacion = "";
-        this.Resultado = 0;
         this.Err = "";
     };
     return HomePage;
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Calculadora\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  \n\n  <h1>{{Operacion}}</h1>\n\n  <br>\n\n  <button ion-button color="light" strong=true (click)=\'add1();\'>1</button>\n\n  <button ion-button color="light" strong=true (click)=\'add2();\'>2</button>\n\n  <button ion-button color="light" strong=true (click)=\'add3();\'>3</button>\n\n  <br>\n\n  <button ion-button color="light" strong=true (click)=\'add4();\'>4</button>\n\n  <button ion-button color="light" strong=true (click)=\'add5();\'>5</button>\n\n  <button ion-button color="light" strong=true (click)=\'add6();\'>6</button>\n\n  <br>\n\n  <button ion-button color="light" strong=true (click)=\'add7();\'>7</button>\n\n  <button ion-button color="light" strong=true (click)=\'add8();\'>8</button>\n\n  <button ion-button color="light" strong=true (click)=\'add9();\'>9</button>\n\n  <button ion-button color="light" strong=true (click)=\'add0();\'>0</button>\n\n  <br>\n\n  <button ion-button color="dark" strong=true (click)=\'addSuma();\'>+</button>\n\n  <button ion-button color="dark" strong=true (click)=\'addResta();\'>-</button>\n\n  <button ion-button color="dark" strong=true (click)=\'addMult();\'>x</button>\n\n  <button ion-button color="dark" strong=true (click)=\'addDivi();\'>/</button>\n\n  <br>\n\n  <button ion-button color="dark" strong=true (click)=\'resultado();\'>Resolver</button>\n\n  <button ion-button color="dark" strong=true (click)=\'borrar();\'>Borrar</button>\n\n\n\n  <h1>El resultado es: {{Resultado}}</h1>\n\n  <h6>{{Err}}</h6>\n\n  <!-- INPUTS  -->\n\n  \n\n  <!-- <ion-list>\n\n    <ion-item>\n\n      <ion-label fixed>Username</ion-label>\n\n      <ion-input type="text" value=""></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label floating>Username</ion-label>\n\n      <ion-input type="text"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-input type="text" placeholder="Username"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label stacked>Username</ion-label>\n\n      <ion-input type="text"></ion-input>\n\n    </ion-item>\n\n  </ion-list> -->\n\n\n\n  <!-- BUTTONS -->\n\n  <!-- <button ion-button color="light">Light</button>\n\n  <button ion-button color="danger" outline>Danger Outline</button>\n\n  <button ion-button color="secondary" clear>Secondary Clear</button>\n\n  <button ion-button color="dark" round>Dark Round</button>\n\n  <button ion-button block>Block Button</button>\n\n  <button ion-button icon-only>\n\n    Right Icon\n\n    <ion-icon name="home"></ion-icon>\n\n  </button> -->\n\n\n\n  <!-- GRID -->\n\n  <!-- <ion-grid>\n\n    <ion-row>\n\n      <ion-col col-12>This column will take 12 columns</ion-col>\n\n      <ion-col col-6>This column will take 6 columns</ion-col>\n\n      <ion-col col-3>This column will take 3 columns</ion-col>\n\n      <ion-col col-3>This column will take 3 columns</ion-col>\n\n    </ion-row>\n\n    <ion-row>\n\n      <ion-col col-12>\n\n        <ion-item>\n\n          <ion-label floating>Username</ion-label>\n\n          <ion-input type="text"></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-6>\n\n        <ion-item>\n\n          <ion-label fixed>Username</ion-label>\n\n          <ion-input type="text" value=""></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-3>\n\n        <ion-item>\n\n          <ion-label floating>Username</ion-label>\n\n          <ion-input type="text"></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-3>\n\n        <button ion-button color="danger" outline>Danger Outline</button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid> -->\n\n\n\n  <!-- DATA BINDING -->\n\n  <!-- <ion-row>\n\n    <ion-col col-6>\n\n      <ion-item>\n\n        <ion-label fixed>Nombre</ion-label>\n\n        <ion-input [(ngModel)]="name" type="text" value=""></ion-input>\n\n      </ion-item>\n\n    </ion-col>\n\n    <ion-col col-3>\n\n      <p>Hola {{name}}</p>\n\n    </ion-col>\n\n  </ion-row> -->\n\n\n\n  <!-- ngFor LISTA DE NUMEROS-->\n\n  <!-- <ion-row>\n\n    <ion-col col-3>\n\n      <p *ngFor="let item of test">{{item}}</p>\n\n    </ion-col>\n\n  </ion-row>\n\n</ion-content> -->\n\n\n\n  <!-- ngIf QUE MUESTRA MENSAJE CUANDO FLAG ES TRUE -->\n\n  <!-- <ion-row>\n\n    <ion-col col-s5>\n\n      <p *ngIf="flag">Es true</p>\n\n    </ion-col>\n\n  </ion-row> -->\n\n\n\n\n\n  <!-- INPUT CON MODEL QUE AGREGA DINAMICAMENTE NUMERO A LISTA -->\n\n  <!-- <ion-item>\n\n    <ion-label floating>number</ion-label>\n\n    <ion-input [(ngModel)]="addNumber" type="number"></ion-input>\n\n  </ion-item>\n\n  <button ion-button color="danger" outline (click)=\'add(addNumber)\'>Danger Outline</button>\n\n  <p *ngFor="let item of numbers">{{item}}</p> -->\n\n'/*ion-inline-end:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Calculadora\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  \n\n  <h1>{{Operacion}}</h1>\n\n  <ion-grid>\n\n  <ion-row class = "numbersRow">\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add7();\'>7</button></ion-col>\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add8();\'>8</button></ion-col>\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add9();\'>9</button></ion-col>\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'addSuma();\'>+</button></ion-col>\n\n  </ion-row>\n\n  <ion-row class = "numbersRow">\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add4();\'>4</button></ion-col>\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add5();\'>5</button></ion-col>\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add6();\'>6</button></ion-col>\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'addResta();\'>-</button></ion-col>\n\n  </ion-row>\n\n  <ion-row class = "numbersRow"> \n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add1();\'>1</button></ion-col>\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add2();\'>2</button></ion-col>\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add3();\'>3</button></ion-col>\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'addMult();\'>x</button></ion-col>\n\n  </ion-row>\n\n  <ion-row class = "numbersRow">\n\n    <ion-col><button ion-button full color="light" strong=true (click)=\'add0();\'>0</button></ion-col>\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'addPunto();\'>.</button></ion-col>\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'addDivi();\'>÷</button></ion-col>    \n\n  </ion-row>\n\n  <ion-row class = "numbersRow">\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'resultado();\'>Resolver</button></ion-col>\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'borrar();\'>Clear</button></ion-col>\n\n    <ion-col><button ion-button full color="dark" strong=true (click)=\'backspace();\'>Backspace</button></ion-col>\n\n  </ion-row>\n\n</ion-grid>\n\n  <!-- <h1>El resultado es: {{Resultado}}</h1> -->\n\n  <h6>{{Err}}</h6>\n\n  <!-- INPUTS  -->\n\n  \n\n  <!-- <ion-list>\n\n    <ion-item>\n\n      <ion-label fixed>Username</ion-label>\n\n      <ion-input type="text" value=""></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label floating>Username</ion-label>\n\n      <ion-input type="text"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-input type="text" placeholder="Username"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label stacked>Username</ion-label>\n\n      <ion-input type="text"></ion-input>\n\n    </ion-item>\n\n  </ion-list> -->\n\n\n\n  <!-- BUTTONS -->\n\n  <!-- <button ion-button color="light">Light</button>\n\n  <button ion-button color="danger" outline>Danger Outline</button>\n\n  <button ion-button color="secondary" clear>Secondary Clear</button>\n\n  <button ion-button color="dark" round>Dark Round</button>\n\n  <button ion-button block>Block Button</button>\n\n  <button ion-button icon-only>\n\n    Right Icon\n\n    <ion-icon name="home"></ion-icon>\n\n  </button> -->\n\n\n\n  <!-- GRID -->\n\n  <!-- <ion-grid>\n\n    <ion-row>\n\n      <ion-col col-12>This column will take 12 columns</ion-col>\n\n      <ion-col col-6>This column will take 6 columns</ion-col>\n\n      <ion-col col-3>This column will take 3 columns</ion-col>\n\n      <ion-col col-3>This column will take 3 columns</ion-col>\n\n    </ion-row>\n\n    <ion-row>\n\n      <ion-col col-12>\n\n        <ion-item>\n\n          <ion-label floating>Username</ion-label>\n\n          <ion-input type="text"></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-6>\n\n        <ion-item>\n\n          <ion-label fixed>Username</ion-label>\n\n          <ion-input type="text" value=""></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-3>\n\n        <ion-item>\n\n          <ion-label floating>Username</ion-label>\n\n          <ion-input type="text"></ion-input>\n\n        </ion-item>\n\n      </ion-col>\n\n      <ion-col col-3>\n\n        <button ion-button color="danger" outline>Danger Outline</button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-grid> -->\n\n\n\n  <!-- DATA BINDING -->\n\n  <!-- <ion-row>\n\n    <ion-col col-6>\n\n      <ion-item>\n\n        <ion-label fixed>Nombre</ion-label>\n\n        <ion-input [(ngModel)]="name" type="text" value=""></ion-input>\n\n      </ion-item>\n\n    </ion-col>\n\n    <ion-col col-3>\n\n      <p>Hola {{name}}</p>\n\n    </ion-col>\n\n  </ion-row> -->\n\n\n\n  <!-- ngFor LISTA DE NUMEROS-->\n\n  <!-- <ion-row>\n\n    <ion-col col-3>\n\n      <p *ngFor="let item of test">{{item}}</p>\n\n    </ion-col>\n\n  </ion-row>\n\n</ion-content> -->\n\n\n\n  <!-- ngIf QUE MUESTRA MENSAJE CUANDO FLAG ES TRUE -->\n\n  <!-- <ion-row>\n\n    <ion-col col-s5>\n\n      <p *ngIf="flag">Es true</p>\n\n    </ion-col>\n\n  </ion-row> -->\n\n\n\n\n\n  <!-- INPUT CON MODEL QUE AGREGA DINAMICAMENTE NUMERO A LISTA -->\n\n  <!-- <ion-item>\n\n    <ion-label floating>number</ion-label>\n\n    <ion-input [(ngModel)]="addNumber" type="number"></ion-input>\n\n  </ion-item>\n\n  <button ion-button color="danger" outline (click)=\'add(addNumber)\'>Danger Outline</button>\n\n  <p *ngFor="let item of numbers">{{item}}</p> -->\n\n'/*ion-inline-end:"C:\Users\DanielReverolAngel\Downloads\4-URU\Moviles\CalculadoraTS\src\pages\home\home.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object])
 ], HomePage);

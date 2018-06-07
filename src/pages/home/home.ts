@@ -10,10 +10,33 @@ export class HomePage {
   Operacion: string;
   Err: string;
   save: string;
-  regexp = new RegExp(/[-+*\/]{2,3}/g);
+  regexp = new RegExp(/[-+*\/.]{2}/g);
+  regPunto = new RegExp(/[0-9]+[.]+[0-9]+[.]/g);
 
   constructor(public navCtrl: NavController) {
     this.Operacion="";
+  }
+  addPunto(){
+    const isExisting = this.regexp.test(this.Operacion);
+    const isDotExisting = this.regPunto.test(this.Operacion);
+    console.log(this.Operacion);
+    
+    if (isExisting === false) {
+      this.save = this.Operacion;
+      this.Operacion = this.Operacion + "."; 
+      const isExisting = this.regexp.test(this.Operacion);
+      const isDotExisting = this.regPunto.test(this.Operacion);
+      if (isDotExisting === true){
+        this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+      }
+      if (isExisting === true) {
+        this.Err = "debe agregar un numero depues de un simbolo";
+        this.Operacion = this.save;
+      }
+    }else {
+      this.Err = "debe ";
+    }
+
   }
   addSuma(){
     const isExisting = this.regexp.test(this.Operacion);
@@ -26,7 +49,7 @@ export class HomePage {
         this.Operacion = this.save;
       }
     }else{
-      this.Err = "debe agregar un numero depues de un simbolo2";
+      this.Err = "debe agregar un numero depues de un simbolo";
     }
   }
   addResta(){
@@ -40,7 +63,7 @@ export class HomePage {
         this.Operacion = this.save;
       }
     }else{
-      this.Err = "debe agregar un numero depues de un simbolo2";
+      this.Err = "debe agregar un numero depues de un simbolo";
     }
   }
   addMult(){
@@ -54,7 +77,7 @@ export class HomePage {
         this.Operacion = this.save;
       }
     }else{
-      this.Err = "debe agregar un numero depues de un simbolo2";
+      this.Err = "debe agregar un numero depues de un simbolo";
     } 
   }
   addDivi(){
@@ -68,7 +91,7 @@ export class HomePage {
         this.Operacion = this.save;
       }
     }else{
-      this.Err = "debe agregar un numero depues de un simbolo2";
+      this.Err = "debe agregar un numero depues de un simbolo";
     }
   }
   add0(){
@@ -101,17 +124,56 @@ export class HomePage {
   add9(){
     this.Operacion = this.Operacion + "9";
   }
+
   resultado(){
-    this.Resultado = eval(this.Operacion);
-    if ( isNaN(this.Resultado) === true) {
-      this.Err = "culliao papi";
-    }
-    else {
-      this.Err = "";
-    }
+      let a = this.Operacion.charAt(this.Operacion.length-1);
+  switch (a) {
+      case '+':
+        this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+          break;
+      case '-':  
+        this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+          break;
+      case '*': 
+        this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+          break;
+      case '/':
+        this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
+          break;    
+      default:
+        let b = this.Operacion.charAt(0);
+      switch (b) {
+        case '+':
+          this.Operacion = this.Operacion.substr(1);
+            break;
+        case '-':  
+          this.Operacion = this.Operacion.substr(1);
+            break;
+        case '*': 
+          this.Operacion = this.Operacion.substr(1);
+            break;
+        case '/':
+          this.Operacion = this.Operacion.substr(1);
+            break;    
+        default:
+          this.Operacion = eval(this.Operacion);
+          this.Operacion = this.Operacion + "";
+          this.Err = "";
+          console.log(this.Operacion);
+          
+          if(this.Operacion === undefined) {
+            this.Operacion = "";
+            this.Err = "Campo Vacio"
+          }
+    }}
+  
+  }
+  backspace(){
+    this.Operacion = this.Operacion.substring(0, this.Operacion.length - 1);
   }
   borrar(){
     this.Operacion="";
-    this.Resultado = 0;
     this.Err = "";
   }}
+
+  
